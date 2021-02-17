@@ -8,6 +8,9 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python2 1 \
     && update-alternatives --config python \
     && select python2
 
+RUN echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf \
+	    && sysctl -n -w fs.inotify.max_user_watches=524288
+
 RUN useradd -ms /bin/bash openatvbuilder
 
 USER openatvbuilder
