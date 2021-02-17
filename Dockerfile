@@ -7,6 +7,9 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python2 1 \
     && update-alternatives --install /usr/bin/python python /usr/bin/python3 2 \
     && update-alternatives --config python \
     && select python2
+    
+RUN echo "dash dash/sh boolean false" | debconf-set-selections
+RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
 
 RUN echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf \
 	    && sysctl -n -w fs.inotify.max_user_watches=524288
